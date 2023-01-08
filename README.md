@@ -39,32 +39,104 @@ Matlab à l’aide la commande load.
 
 ![1](https://user-images.githubusercontent.com/120643516/210903526-d0f43674-09e7-4e39-8361-83b64625e6aa.png)
 
-#### Pour supprimer les bruits à très basse fréquence dues aux mouvements du corps,on utilisera un filtre idéal passe-haut. Pour ce faire, calculer tout d’abord la TFD du signal ECG, régler les fréquences inférieures à 0.5Hz à zéro, puis effectuer une TFDI pour restituer le signal filtré.
+#### Pour supprimer les bruits à très basse fréquence dues aux mouvements du corps,on utilisera un filtre idéal passe-haut. 
 
 
+1-Pour ce faire, calculer tout d’abord la TFD du signal ECG:
+clear all
+
+close all
+
+clc
+
+load 'ecg.mat';
+
+fe=500;
+
+te=1/fe;
+
+N=length(ecg);
+
+t=0:te:(N-1)*te;
+
+fshift= (-N/2:N/2-1)*(fe/N); 
+
+plot(t,ecg)
+
+spectre_x=fft(ecg);
+
+plot(fshift,fftshift(abs(spectre_x)));
 
 
+![3](https://user-images.githubusercontent.com/120643516/211198007-0ba0aad7-a855-47c6-b2cc-de794b87c2c2.png)
 
 
+2- régler les fréquences inférieures à 0.5Hz à zéro, puis effectuer une TFDI pour restituer le signal filtré.
+pass_haut_ideal = ones(size(ecg));
+
+fc = 0.5; 
+
+indexe_fc = ceil((fc*N)/fe); %% ceil(A) arrondit les éléments de A aux entiers les plus proches supérieurs ou égaux à A. Pour le complexe A, les parties imaginaire et réelle sont arrondies indépendamment.
+
+pass_haut_ideal(1:indexe_fc)=0;
+
+pass_haut_ideal(N-indexe_fc+1:N)=0;
+
+f=(0:N-1)*(fe/N);
+
+spectre_ecg_filtree = pass_haut_ideal .* spectre_ecg;
+
+tmp_ecg_filre = ifft(spectre_ecg_filtree,'symmetric');
+
+plot(t,tmp_ecg_filre);
+
+![3-2](https://user-images.githubusercontent.com/120643516/211198720-f2b0e143-f9f8-416b-92de-d5db2219cce4.png)
+
+## Suppression des interférences des lignes électriques 50Hz
+
+### ECG est contaminé par un bruit du secteur 50 Hz qui doit être supprimé.
+Les filtres Notch sont des filtres de blocage de bande. Ils sont utilisés pour supprimer les faisceaux laser puissants en spectroscopie laser Raman et dans d'autres applications. Ils peuvent également être utilisés pour protéger la vue ou servir de filtres amovibles pour les caméras.
+
+Ce filtre permet de supprimer la composante secteur EDF tout en préservant le contenu fréquentiel des signaux de mesures (ECG, SPO2, etc..).
+
+#### On applique  un filtre Notch idéal pour supprimer cette composante. Les filtres Notch sont utilisés pour rejeter une seule fréquence d'une bande de fréquence donnée.
+
+## script :
+
+% Elimination bruit 50hz
+
+pass_notch_ideal = ones(size(ecg));%%  returns an array of 1s that is the same size as ecg.
+
+fc = 50; 
+
+indexe_fc = ceil((fc*N)/fe)+1;
+
+pass_notch_ideal(indexe_fc)=0;
+
+pass_notch_ideal(N-indexe_fc+1)=0;
+
+spectre_ecg2_filtree = pass_notch_ideal .* fft(tmp_ecg_filre);
+
+tmp_ecg2_filre = ifft(spectre_ecg2_filtree,'symmetric');
+
+subplot(311)
+
+plot(t,ecg);
+
+subplot(312)
+plot(t,tmp_ecg2_filre);
+
+subplot(313)
+plot(t,ecg-tmp_ecg2_filre);
 
 
+![5-6](https://user-images.githubusercontent.com/120643516/211199635-ff5662e0-64e4-42b2-a5c4-3751dce02651.png)
 
+## Amélioration du rapport signal sur bruit :
 
+Le signal ECG est également atteint par des parasites en provenance de l’activité musculaire extracardiaque du patient. La quantité de bruit est proportionnelle à la
 
+largeur de bande du signal ECG. Une bande passante élevée donnera plus de bruit dans les signaux, et limiter la bande passante peut enlever des détails importants du 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+signal. 
 
