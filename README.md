@@ -13,7 +13,7 @@ fonctionnement d’un cycle cardiaque.
 On Sauvegarder le signal ECG sur la répertoire de travail, puis on le charge dans 
 Matlab à l’aide la commande load.
 
- Ce signal a été échantillonné avec une fréquence de 500Hz. 
+ Ce signal a été échantillonné avec une fréquence de 50Hz. 
  
 ## script :
 
