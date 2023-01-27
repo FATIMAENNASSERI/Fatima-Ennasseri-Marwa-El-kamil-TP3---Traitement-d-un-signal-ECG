@@ -1,4 +1,4 @@
-# Fatima-Ennasseri-Marwa-El-kamil-TP3---Traitement-d-un-signal-ECG
+# Fatima-Ennasseri-Marwa-El-Kamil-TP3---Traitement-d-un-signal-ECG
 ## Introduction 
 Un électrocardiogramme (ECG) est une représentation graphique de l’activation électrique du cœur à l’aide d’un électrocardiographe. Cette activité est recueillie sur un patient allongé, au repos, par des électrodes posées à la surface de la peau. 
 L’analyse du signal ECG est utile dans le but de diagnostiquer des anomalies 
@@ -158,13 +158,13 @@ explication de la fonction ceil :""B = ceil(A) rounds the elements of A to the n
 
 ## Identification de la fréquence cardiaque avec la fonction d’autocorrélation
 
-La fréquence cardiaque peut être identifiée à partir de la fonction d'autocorrélation du signal ECG. Cela se fait en cherchant le premier maximum local après le maximum global (à tau = 0) de cette fonction. 
+La fréquence cardiaque peut être identifiée à partir de la fonction d'autocorrélation du signal ECG. à tau =0, en cherchant le premier maximum local après le maximum global  de cette fonction. 
 
 on va Ecrire un programme permettant de calculer l’autocorrélation du signal ECG, puis de chercher cette fréquence cardiaque de façon automatique. Utiliser ce programme sur le signal traité ecg3 ou ecg2 et sur le signal ECG non traité
 
  ![Capture d’écran 2023-01-27 124843](https://user-images.githubusercontent.com/120643516/215081007-a010374a-fd36-4cea-80d0-f43835d876fb.png)
  
- Grâce auresultat de la commande xcorr on a pu detecté une correclation dans les maximum a taux = 2;
+ Grâce à  la commande xcorr on a pu detecter une correclation dans les maximum a tau égale à 2;
  
 
 
