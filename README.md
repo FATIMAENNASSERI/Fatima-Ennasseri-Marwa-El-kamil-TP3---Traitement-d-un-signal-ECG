@@ -140,3 +140,43 @@ largeur de bande du signal ECG. Une bande passante élevée donnera plus de brui
 
 signal. 
 
+Après avoir appliqué les 3 filtres on'a reussi a troouvé le signal suivant :
+
+![Capture d’écran 2023-01-27 124500](https://user-images.githubusercontent.com/120643516/215080150-56c1af14-f098-4632-9cc3-0db08f7f6fa7.png)
+
+on utilisons le spectre suivant : 
+
+
+
+
+
+
+
+![elimini](https://user-images.githubusercontent.com/120643516/215080258-6ea7d8b3-5025-455e-b6bf-3c2b32f28af6.png)
+
+explication de la fonction ceil :""B = ceil(A) rounds the elements of A to the nearest integers greater than or equal to A. For complex A, the imaginary and real parts are rounded independently""
+
+## Identification de la fréquence cardiaque avec la fonction d’autocorrélation
+
+La fréquence cardiaque peut être identifiée à partir de la fonction d'autocorrélation du signal ECG. Cela se fait en cherchant le premier maximum local après le maximum global (à tau = 0) de cette fonction. 
+
+on va Ecrire un programme permettant de calculer l’autocorrélation du signal ECG, puis de chercher cette fréquence cardiaque de façon automatique. Utiliser ce programme sur le signal traité ecg3 ou ecg2 et sur le signal ECG non traité
+
+ ![Capture d’écran 2023-01-27 124843](https://user-images.githubusercontent.com/120643516/215081007-a010374a-fd36-4cea-80d0-f43835d876fb.png)
+ 
+ Grâce auresultat de la commande xcorr on a pu detecté une correclation dans les maximum a taux = 2;
+ 
+
+
+
+ ![auto](https://user-images.githubusercontent.com/120643516/215081656-d4ba0c5c-9b22-4859-a12b-3038ac9a91f9.png)
+
+
+
+
+
+
+
+
+
+
